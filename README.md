@@ -173,6 +173,14 @@ Models are evaluated using:
 
 ---
 
+#### Contributor Profiles:
+- **Christos Jovanovic** - 
+- **Gavin Hearne** - 
+- **Michael Welch** - 
+- **Mokshad Sankhe** - [@Mokshu3242](https://github.com/Mokshu3242)
+ 
+---
+
 ## Citation
 
 DNABERT2:
