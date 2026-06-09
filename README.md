@@ -40,9 +40,6 @@ The project evaluates performance on in-distribution (ID) and out-of-distributio
 
 ## Architecture
 
-<p align="center">
-  <img src="/Image/Architecture.png" alt="System Architecture Diagram" width="600"/>
-</p>
 
 
 ---
