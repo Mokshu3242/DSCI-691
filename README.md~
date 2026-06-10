@@ -44,7 +44,7 @@ The project evaluates performance on in-distribution (ID) and out-of-distributio
 The data for this project is included under `/dataset_g`. If you intend on reproducing this data, you can run the `/dataset_g/data_pipeline.ipynb` notebook. This contains instructions as well as code used in downloading and processing the data for use in our models. This produces a final model-ready dataset, for use in downstream classifiers.
 
 <p align="center">
-  <img src="/Image/dataset_construction.png" alt="Dataset Construction Pipeline" width="400"/>
+  <img src="/Image/dataset_construction.png" alt="Dataset Construction Pipeline" width="600"/>
 </p>
 
 ---
