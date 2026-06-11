@@ -206,11 +206,11 @@ Models are evaluated using:
 
 ## Limitations
 
-- Only one genomic foundation model (DNABERT2) was evaluated.
+- Only one genomic foundation model (DNABERT2) was evaluated. There are a number of GLMs that have been produced: Nucleotide Transformer, HyenaDNA, etc... This also includes Protein transformers such as EVO, which operate on protein sequences instead of nucleotide sequences,
 - Hyperparameter optimization was minimal.
 - The study focuses only on promoter classification.
-- OOD evaluation was limited to motif-based distribution shifts.
-- Biological validation of learned representations was outside the scope of this project.
+- OOD evaluation was limited to motif-based distribution shifts. Furthermore, we did only select a handful of motifs. This test could be expanded easily, working with different motifs, and different combinations of motifs than those that were selected in this project. 
+- Biological validation of learned representations was outside the scope of this project. It would have been interesting to evaluate the hidden representations produced by the fine-tuned GLM. Comparing attention maps to the sequences has shown interesting results, highligting known biologically active sites in DNA in the past. 
 
 ---
 
@@ -219,7 +219,7 @@ Models are evaluated using:
 - Evaluate additional genomic foundation models.
 - Explore larger transformer architectures.
 - Extend classification to other regulatory elements such as enhancers and splice sites.
-- Investigate additional forms of biological distribution shift.
+- Investigate additional forms of biological distribution shift, such as taxanomic and functional.
 - Apply interpretability methods to identify important genomic features learned by the model.
 - Explore multi-task genomic prediction frameworks.
 
