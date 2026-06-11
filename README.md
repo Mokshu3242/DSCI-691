@@ -47,6 +47,8 @@ The data for this project is included under `/dataset_g`. If you intend on repro
   <img src="/Image/dataset_construction.png" alt="Dataset Construction Pipeline" width="400"/>
 </p>
 
+Producing this dataset was more challenging than initially expected, primarily because producing ID and OOD splits that were directly comparable required more careful construction than was done initially. After splitting the OOD test from the train dataset, we had initially produced a ID test through directly randomly sampling the training. This caused issues as a result of imbalanced motif frequencies. While both sets contained promoter and non-promoter sequences with the same motifs (only motif combinations were held-out), the OOD set was enriched for specific motifs. Sequences containing rare or highly distinct motifs were far easier to classify, so despite the OOD datsets containing novel motif combinations, the relatively higher volume of distinct motifs produced an easier-than-expected classification test. To account for this, we had to balance motif counts across both ID and OOD testing, as well as balance the class-labels. This made the two sets more directly comparable. 
+
 ---
 
 ## Baseline Models
@@ -124,6 +126,10 @@ Training used class-weighted cross entropy to account for class imbalance. Model
     - Target module: `Wqkv`
 
 After training, each model was evaluated on the matched ID test set and the held-out motif-combination OOD test set.
+
+There were several challenges faced relating to the development of the DNABERT2 classifier model, which were mostly a result of versioning. As a model that was developed a few years ago on different python and pytorch versions, we were faced with incompatibilities when we tried to run the model, both with smaller features and key functions. The largest issue was with the flashattention module Triton. This is designed as an optimization feature built into the DNABERT2 model, however trying to use it as intended resulted in an incompatibility with current versions of pytorch. As a result, we had to intentially uninstall it to make the model work as intended.
+
+A second error was not catastrophic, but resulted in significant downstream performance losses. We pulled the model through `huggingface`, however had mistakenly loaded it through `BertModel.from_pretrained`. This was not intended by the creators of DNABERT2, and resulted in a number of weights being randomly initialized. Instead, we had to be careful to load it through `AutoModel.from_pretrained` to pull the correct weights and prevent nonstandard BERT layers from being overwritten. 
 
 ---
 
@@ -227,8 +233,52 @@ Models are evaluated using:
  
 ---
 
-## Citation
+## Citations
 
-DNABERT2:
 
-> Zhou et al. (2023). DNABERT-2: Efficient Foundation Model and Benchmark For Multi-Species Genome. *arXiv:2306.15006*
+**DNABERT2**
+
+> Zhou, Z., Ji, Y., Li, W., Dutta, P., Davuluri, R. V., & Liu, H. (2023).  
+> **DNABERT-2: Efficient Foundation Model and Benchmark For Multi-Species Genome.**  
+> *arXiv:2306.15006*.  
+> [https://arxiv.org/abs/2306.15006](https://arxiv.org/abs/2306.15006)
+
+**MEME Suite**
+
+> Bailey, T. L., Johnson, J., Grant, C. E., & Noble, W. S. (2015).  
+> **The MEME Suite.**  
+> *Nucleic Acids Research*, 43(W1), W39–W49.  
+> [https://doi.org/10.1093/nar/gkv416](https://doi.org/10.1093/nar/gkv416)
+
+**AME**
+
+> McLeay, R. C., & Bailey, T. L. (2010).  
+> **Motif Enrichment Analysis: a unified framework and an evaluation on ChIP data.**  
+> *BMC Bioinformatics*, 11, 165.  
+> [https://doi.org/10.1186/1471-2105-11-165](https://doi.org/10.1186/1471-2105-11-165)
+
+**FIMO**
+
+> Grant, C. E., Bailey, T. L., & Noble, W. S. (2011).  
+> **FIMO: scanning for occurrences of a given motif.**  
+> *Bioinformatics*, 27(7), 1017–1018.  
+> [https://doi.org/10.1093/bioinformatics/btr064](https://doi.org/10.1093/bioinformatics/btr064)
+
+**JASPAR**
+
+> Ovek Baydar, D., Rauluseviciute, I., Aronsen, D. R., et al. (2026).  
+> **JASPAR 2026: expansion of transcription factor binding profiles and integration of deep learning models.**  
+> *Nucleic Acids Research*, 54(D1), D184–D193.  
+> [https://doi.org/10.1093/nar/gkaf1209](https://doi.org/10.1093/nar/gkaf1209)
+
+**Genomic Benchmarks**
+
+> Grešová, K., Martinek, V., Čechák, D., Šimeček, P., & Alexiou, P. (2023).  
+> **Genomic benchmarks: a collection of datasets for genomic sequence classification.**  
+> *BMC Genomic Data*, 24, 25.  
+> [https://doi.org/10.1186/s12863-023-01123-8](https://doi.org/10.1186/s12863-023-01123-8)
+
+
+<!-- #DNABERT2:
+
+#> Zhou et al. (2023). DNABERT-2: Efficient Foundation Model and Benchmark For Multi-Species Genome. *arXiv:2306.15006* -->
